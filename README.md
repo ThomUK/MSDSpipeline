@@ -11,12 +11,12 @@ Automatically download, join, and clean the NHS Digital Maternity Services Month
   1. Automatically navigating to every monthly "publications" url on the main MSMS url.  (72 pages as at Sept 2021)
   2. Scraping a list of all .CSV and .XLSX files from each of the monthly publications pages.  (296 files as at Sept 2021)
   3. Downloading each file to a "data/downloaded" folder (approx 725MB of data as at Sept 2021).  
+  4. Separate the different data type files into their own folders (eg. data, measures, CQIM, dq, meta, pa, rdt, qual).  One-off files are sorted into a "miscellaneous" folder).  
 
 - Future code (PRs welcome) **will**:
   1. Handle inconsistent file naming
-  2. Separate the different data type files into their own folders (eg. data, measures, CQIM, dq, meta, pa, rdt, qual, and others such as satod, robsons groups, etc)
-  3. Join monthly datasets of the same type together to allow time-series analysis.
-  4. Give the option to re-export a set of cleaned CSVs.  
+  2. Join monthly datasets of the same type together to allow time-series analysis.
+  3. Give the option to re-export a set of cleaned CSVs.  
 
 - Future code **might**:
   1. Implement a shiny dashboard to give a basic window into the data.  Several dashboards using the same source data are already available.  One is the [NHS Digital Maternity Services Dashboard](https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/maternity-services-data-set/maternity-services-dashboard).

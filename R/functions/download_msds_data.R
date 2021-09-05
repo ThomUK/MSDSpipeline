@@ -30,15 +30,15 @@ download_msds_data <- function(destination = "data/downloaded", check_for_new_da
   
   message(paste0("There are ", nrow(data_links), " MSDS files available for download."))
   
-  #read the filenames of already downloaded files
-  existing_files <- list.files(destination)
+  #read the filenames of already downloaded files, including those sorted into subfolders
+  existing_files <- list.files(destination, recursive = TRUE)
   message(paste0(length(existing_files), " files have previously been downloaded to this computer."))
   
   #add detail on what has already been downloaded to the dataframe
   data_links <- data_links %>% 
     mutate(
       filename = basename(url),
-      already_downloaded = ifelse(filename %in% existing_files, TRUE, FALSE)
+      already_downloaded = ifelse(filename %in% basename(existing_files), TRUE, FALSE)
     )
   
   #filter down to a list for downloading (unless force_redownload_all is TRUE)

@@ -19,3 +19,17 @@ download_msds_data(
 
 # Move the downloaded data into subfolders, based on file names (and therefore data contents)
 sort_data_into_subfolders()
+
+# There are 3 main data source files:  measures, data, and dq
+# MEASURES #
+  #read measures data into a dataframe, including any background data cleaning
+  dtf <- get_measures() #OK 401k rows
+
+  #quick plot of all providers data for a given measure
+  measure_comparative_plot(dtf, "CQIMPreterm", "RX1")
+
+# DATA #
+  # Coming soon
+
+# DQ #
+  # Coming soon

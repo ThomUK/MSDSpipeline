@@ -40,6 +40,13 @@ These functions combine the available data for measures, exp-data, and exp-dq re
 4. `measure_comparative_plot()`, `data_comparative_plot()`, `dq_comparative_plot()`
 These functions return an example visualisation using each of the consolidated datasets.  Note that `dq_comparative_plot()` is not yet implemented.  
 
+Measure:  
+![image](https://user-images.githubusercontent.com/10871342/133005178-9b076464-54f0-4f0b-ba3e-da24f98ed412.png)
+
+Exp-data:  
+![image](https://user-images.githubusercontent.com/10871342/133005224-4667be99-1a45-4357-a45b-7a180aa55e1e.png)
+
+
 ## Similar work by others
 
 - [https://github.com/sg-peytrignet/MHSDS-pipeline](https://github.com/sg-peytrignet/MHSDS-pipeline).  Similar project for downloading mental health statistics.  

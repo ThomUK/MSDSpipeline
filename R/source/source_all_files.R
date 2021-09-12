@@ -1,0 +1,13 @@
+
+source("R/functions/discover_links.R")
+source("R/functions/download_data_from_url.R")
+source("R/functions/download_msds_data.R")
+source("R/functions/sort_data_into_subfolders.R")
+source("R/functions/move_file_into_subfolder.R")
+source("R/functions/discover_data_type.R")
+source("R/functions/combine_files_to_dataframe.R")
+source("R/functions/move_file.R")
+source("R/functions/get_measures.R")
+source("R/functions/get_data.R")
+source("R/functions/plots/measure_comparative_plot.R")
+source("R/functions/plots/data_comparative_plot.R")

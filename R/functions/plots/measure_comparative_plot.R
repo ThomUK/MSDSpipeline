@@ -16,11 +16,13 @@ measure_comparative_plot <- function(dtf, measure_name, focus_org_code){
     geom_line(size = 0.2) + 
     geom_line(data = temp %>% filter(Org_Code == focus_org_code), col = "red", size = 1) +
     labs(
-      title = paste0(measure_name, " with org code ", focus_org_code, " highlighted")
+      title = paste0("Indicator - ", measure_name, " grouped by Org Code"),
+      subtitle = paste0("Org code ", focus_org_code, " is highlighted")
     ) + 
     theme(
       legend.position = "none"
     )
   
-  ggplotly(p)
+  print(p)
+#  ggplotly(p)
 }

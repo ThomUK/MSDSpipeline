@@ -1,5 +1,5 @@
 # NHS-MSDS-pipeline
-Automatically download, join, and clean the NHS Digital Maternity Services Monthly Statistics data (MSMS), which is derived from the Maternity Services Data Set (MSDS). Newly released monthly files from NHS Digital will automatically be added to your dataset.  
+Automatically download, join, and clean the NHS Digital Maternity Services Monthly Statistics data (MSMS), which is derived from the Maternity Services Data Set (MSDS). When new information is released by NHS Digital, re-running the scripts will add the new information to your downloaded data, allowing analysis on the full dataset.  
 
 ## Project Description
 
@@ -8,10 +8,11 @@ Automatically download, join, and clean the NHS Digital Maternity Services Month
 - Working with the raw data in this form is time-consuming, and involves downloading the raw files, handling file naming inconsistencies, and joining data from multiple months together to form a clean dataset.  
 
 - The code written so far automates this process by:
-  1. Automatically navigating to every monthly "publications" url on the main MSMS url.  (72 pages as at Sept 2021)
-  2. Scraping a list of all .CSV and .XLSX files from each publications page.  (296 files as at Sept 2021)
+  1. Navigating to every monthly "publications" url on the main [MSMS](https://digital.nhs.uk/data-and-information/publications/statistical/maternity-services-monthly-statistics) url.  (72 pages as at Sept 2021)
+  2. Scraping a list of all .CSV and .XLSX files from each publications page ([example](https://digital.nhs.uk/data-and-information/publications/statistical/maternity-services-monthly-statistics/may-2021) - 296 files as at Sept 2021)
   3. Downloading each file to a "data/downloaded" folder (approx 725MB of data as at Sept 2021).  
-  4. Separate the different data type files into their own folders (eg. data, measures, CQIM, dq, meta, pa, rdt, qual).  One-off files are sorted into a "miscellaneous" folder).  
+  4. Separating the different data type files into their own folders (eg. data, measures, CQIM, dq, meta, pa, rdt, qual).  One-off files are sorted into a "miscellaneous" folder).  
+  5. Joining monthly datasets of the same type together, including cleaning and consolidating columns where formats have changed over the 6+ years that the datasets have been released.  
 
 - Future code (PRs welcome) **will**:
   1. Join monthly datasets of the same type together to allow time-series analysis. ** in progress **
@@ -24,7 +25,7 @@ Automatically download, join, and clean the NHS Digital Maternity Services Month
 
 ## How to use
 
-The entry point for the code is `R/main.R`.  All the configuration options are contained here, and this file calls out to functions where needed.  Just run the functions in this file in sequence, as required.  You will probably not need to modify anything else unless you wish to extend the package (in which case, PRs are welcome! :)  The main functions of interest are listed below:
+The entry point for the code is [R/main.R](https://github.com/ThomUK/NHS-MSDS-pipeline/blob/main/R/main.R).  All the configuration options are contained here, and this file calls out to functions where needed.  Just run the functions in this file in sequence, as required.  You will probably not need to modify anything else unless you wish to extend the package (in which case, PRs are welcome! :)  The main functions of interest are listed below:
 
 1. `download_msds_data()`  
 The first run of `download_msds_data()` will scrape all 70+ monthly pages, and start downloading all 296+ files (725MB+).  You can cancel the R script to abort this if you need.  

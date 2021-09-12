@@ -22,7 +22,6 @@ Automatically download, join, and clean the NHS Digital Maternity Services Month
   2. Implement this code as a package, with vignette examples and tests.  
   3. Generalise to enable downloading of other NHS Digital statistical datasets.  
 
----
 ## How to use
 
 The entry point for the code is `R/main.R`.  All the configuration options are contained here, and this file calls out to functions where needed.  Just run the functions in this file in sequence, as required.  You will probably not need to modify anything else unless you wish to extend the package (in which case, PRs are welcome! :)  The main functions of interest are listed below:
@@ -35,13 +34,12 @@ Similarly, if you are unsure of the status of previously downloaded data files, 
 2. `sort_data_into_subfolders()`  
 This function sorts downloaded files into appopriate subfolders, based on their filename structure.  
 
-3. `get_measures()`  
-This function combines all the measures data into a dataframe, and performs any data cleaning required.  Note this only handles source files named "measures".  There are two more functions being written (`get_data()` and `get_dq()`), which prepare the exp-data and exp-dq files, respectively.  
+3. `get_measures()`, `get_data()`, `get_dq()`
+These functions combine the available data for measures, exp-data, and exp-dq respectively into dataframes, and perform any data cleaning required.  Note that `get_dq()` is not yet implemented.  
 
-4. `measure_comparative_plot()`  
-This is an example visualisation of the downloaded measures data.  Select a single measure name, and an organisation code to highlight.  
+4. `measure_comparative_plot()`, `data_comparative_plot()`, `dq_comparative_plot()`
+These functions return an example visualisation using each of the consolidated datasets.  Note that `dq_comparative_plot()` is not yet implemented.  
 
----
 ## Similar work by others
 
 - [https://github.com/sg-peytrignet/MHSDS-pipeline](https://github.com/sg-peytrignet/MHSDS-pipeline).  Similar project for downloading mental health statistics.  

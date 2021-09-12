@@ -26,11 +26,13 @@ data_comparative_plot <- function(dtf, measure_name, focus_org_code){
     geom_line(size = 0.2) + 
     geom_line(data = org_code_data, col = "red", size = 1) +
     labs(
-      title = paste0("Dimension: ", measure_name, ". Org code ", focus_org_code, " is highlighted")
+      title = paste0("Dimension - ", measure_name, " grouped by Org Code"),
+      subtitle = paste0("Org code ", focus_org_code, " is highlighted")
     ) + 
     theme(
       legend.position = "none"
     )
   
-  ggplotly(p)
+  print(p)
+#  ggplotly(p)
 }

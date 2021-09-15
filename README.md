@@ -40,10 +40,17 @@ These functions combine the available data for measures, exp-data, and exp-dq re
 These functions return an example visualisation using each of the consolidated datasets.  This is not intended as a best-practice visualisation of the data, but is a quick example demo of the volume / type of data available.  
 
 Measure:  
+`measure_comparative_plot(get_measures(), "CQIMPreterm", "RX1")`  
 ![image](https://user-images.githubusercontent.com/10871342/133005178-9b076464-54f0-4f0b-ba3e-da24f98ed412.png)
 
 Exp-data:  
+`data_comparative_plot(get_data(), "TotalBabies", "RX1")`  
 ![image](https://user-images.githubusercontent.com/10871342/133005224-4667be99-1a45-4357-a45b-7a180aa55e1e.png)
+
+Exp-dq:  
+`dq_comparative_plot(get_dq(), "RX1")`  
+![image](https://user-images.githubusercontent.com/10871342/133511418-742c075c-0ae4-4b41-9d80-8c10e046d017.png)
+
 
 
 ## Similar work by others

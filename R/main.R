@@ -22,7 +22,7 @@ sort_data_into_subfolders()
 # Read all measures files into a dataframe
 measures_dtf <- get_measures() # 401k rows
 
-# Quick plot of all providers data for a given measure
+# Quick plot of all providers data for a given measure, highlighting a single provider trust
 measure_comparative_plot(measures_dtf, "CQIMPreterm", "RX1")
 
 
@@ -30,8 +30,13 @@ measure_comparative_plot(measures_dtf, "CQIMPreterm", "RX1")
 # Read all exp-data files into a dataframe
 data_dtf <- get_data() # 2.26M rows
 
-# Quick plot of all providers data for a given dimension
+# Quick plot of all providers data for a given dimension, highlighting a single provider trust
 data_comparative_plot(data_dtf, "TotalBabies", "RX1")
 
+
 ### 3. EXP-DQ ###
-# Coming soon
+# Read all exp-dq files into a dataframe
+dq_dtf <- get_dq()
+
+# Quick summary plot of data quality, highlighting a single provider trust
+dq_comparative_plot(dq_dtf, "RX1")

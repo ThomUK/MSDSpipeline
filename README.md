@@ -13,15 +13,13 @@ Automatically download, join, and clean the NHS Digital Maternity Services Month
   3. Downloading each file to a "data/downloaded" folder (approx 725MB of data as at Sept 2021).  
   4. Separating the different data type files into their own folders (eg. data, measures, CQIM, dq, meta, pa, rdt, qual).  One-off files are sorted into a "miscellaneous" folder).  
   5. Joining monthly datasets of the same type together, including cleaning and consolidating columns where formats have changed over the 6+ years that the datasets have been released.  
+  6. Implementing an example plotting function that quickly demonstrates the volume of data available.
 
-- Future code (PRs welcome) **will**:
-  1. Join monthly datasets of the same type together to allow time-series analysis. ** in progress **
-  2. Give the option to re-export a set of cleaned CSVs.  
-
-- Future code **might**:
-  1. Implement a shiny dashboard to give a basic window into the data.  Several dashboards using the same source data are already available.  One is the [NHS Digital Maternity Services Dashboard](https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/maternity-services-data-set/maternity-services-dashboard).
-  2. Implement this code as a package, with vignette examples and tests.  
-  3. Generalise to enable downloading of other NHS Digital statistical datasets.  
+- Potential future work:
+  1. Implement getter functions to get detials of the available measures contained in each dataframe.  
+  2. Implement a shiny dashboard to give a basic window into the data.  Several dashboards using the same source data are already available.  One is the [NHS Digital Maternity Services Dashboard](https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/maternity-services-data-set/maternity-services-dashboard).
+  3. Implement this code as a package, with vignette examples and tests.  
+  4. Generalise to enable downloading of other NHS Digital statistical datasets.  
 
 ## How to use
 
@@ -36,10 +34,10 @@ Similarly, if you are unsure of the status of previously downloaded data files, 
 This function sorts downloaded files into appopriate subfolders, based on their filename structure.  
 
 3. `get_measures()`, `get_data()`, `get_dq()`
-These functions combine the available data for measures, exp-data, and exp-dq respectively into dataframes, and perform any data cleaning required.  Note that `get_dq()` is not yet implemented.  
+These functions combine the available data for measures, exp-data, and exp-dq respectively into dataframes, and perform any data cleaning required.  Note that I routinely use only a small subset of the available data, and it is possible that some cleaning has been missed.  If you find cleaning that has been missed, please open an issue.  
 
 4. `measure_comparative_plot()`, `data_comparative_plot()`, `dq_comparative_plot()`
-These functions return an example visualisation using each of the consolidated datasets.  Note that `dq_comparative_plot()` is not yet implemented.  
+These functions return an example visualisation using each of the consolidated datasets.  This is not intended as a best-practice visualisation of the data, but is a quick example demo of the volume / type of data available.  
 
 Measure:  
 ![image](https://user-images.githubusercontent.com/10871342/133005178-9b076464-54f0-4f0b-ba3e-da24f98ed412.png)

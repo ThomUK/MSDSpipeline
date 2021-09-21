@@ -55,5 +55,6 @@ Exp-dq:
 
 ## Similar work by others
 
-- [https://github.com/sg-peytrignet/MHSDS-pipeline](https://github.com/sg-peytrignet/MHSDS-pipeline).  Similar project for downloading mental health statistics.  
+- [https://github.com/sg-peytrignet/MHSDS-pipeline](https://github.com/sg-peytrignet/MHSDS-pipeline). Similar project for downloading mental health statistics.  
 - [https://github.com/HorridTom/nhsAEscraper](https://github.com/HorridTom/nhsAEscraper). Similar project for downloading A&E statistics.  
+- [https://github.com/matthewgthomas/NHSWinterSitreps](https://github.com/matthewgthomas/NHSWinterSitreps). Similar project for downloading winter situation reports (sitreps).

@@ -1,4 +1,4 @@
-dq_comparative_plot <- function(dtf, focus_org_code){
+plot_dq_comparative <- function(dtf, focus_org_code){
   
   if(ncol(dtf) != 12) stop("The data frame has the wrong number of columns.")
   # check for a distinctive column name to loosely check the right info has been passed in
@@ -13,7 +13,7 @@ dq_comparative_plot <- function(dtf, focus_org_code){
       Invalid = sum(Invalid) / sum(Denominator),
       Missing = sum(Missing) / sum(Denominator),
     ) %>%
-    mutate(
+    dplyr::mutate(
       Check_Sum = Valid + Default + Invalid + Missing
     ) %>% 
     pivot_longer(c(Valid, Default, Invalid, Missing), names_to = "Submission", values_to = "value")
@@ -23,7 +23,7 @@ dq_comparative_plot <- function(dtf, focus_org_code){
     scale_y_continuous(labels = scales::percent) +
     facet_wrap(vars(Submission), scales = "free_y") +
     geom_line() + 
-    geom_line(summarised_data %>% filter(Org_Code == focus_org_code), mapping = aes(group = Submission), colour = "red", size = 1) + 
+    geom_line(summarised_data %>% dplyr::filter(Org_Code == focus_org_code), mapping = aes(group = Submission), colour = "red", size = 1) + 
     labs(
       title = paste0("Data quality status, grouped by Org Code"),
       subtitle = paste0("Org code ", focus_org_code, " is highlighted in red")

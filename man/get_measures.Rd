@@ -4,7 +4,10 @@
 \alias{get_measures}
 \title{Get Measures}
 \usage{
-get_measures()
+get_measures(data_path = "data/msds_download")
+}
+\arguments{
+\item{data_path}{Character string defining the path to the parent data folder}
 }
 \value{
 A dataframe of measures data

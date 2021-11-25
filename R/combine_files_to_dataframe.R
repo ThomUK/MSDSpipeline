@@ -1,19 +1,22 @@
 #' Combine data files into dataframe
 #'
 #' @param type A string naming the data file type to combine
+#' @param data_path Character string defining the path to the parent data folder
 #'
 #' @return A dataframe of the combined data
 #'
 #' @importFrom magrittr %>%
+#'
+#' @noRd
 
-combine_files_to_dataframe <- function(type){
+combine_files_to_dataframe <- function(type, data_path){
 
   #these are the 3 files that contain raw data
   valid_types <- c("exp-data", "measures", "exp-dq")
 
   if(!type %in% valid_types) stop("Dataframes can only be created for 'exp-data', 'measures', and 'exp-dq'")
 
-  folder_name <- paste0(getwd(), "/data/downloaded/", type)
+  folder_name <- paste0(getwd(), "/", data_path, "/", type)
   message(paste0("Combining files from: ", folder_name))
 
   files <- list.files(path = folder_name, full.names = TRUE)

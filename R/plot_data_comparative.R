@@ -1,4 +1,4 @@
-data_comparative_plot <- function(dtf, measure_name, focus_org_code){
+plot_data_comparative <- function(dtf, measure_name, focus_org_code){
   
   if(ncol(dtf) != 11) stop("The data frame has the wrong number of columns.")
   # check for a distinctive column name to loosely check the right info has been passed in
@@ -10,7 +10,7 @@ data_comparative_plot <- function(dtf, measure_name, focus_org_code){
 
   all_data <- dtf %>% 
     dplyr::filter(Dimension == measure_name) %>% 
-    mutate(Final_Value = as.numeric(Final_Value)) %>% 
+    dplyr::mutate(Final_Value = as.numeric(Final_Value)) %>% 
     dplyr::filter(Org_Level == "Provider") %>% 
     
     # group by the org code and add missing dates in, to break the line plots at missing data
@@ -20,7 +20,7 @@ data_comparative_plot <- function(dtf, measure_name, focus_org_code){
     
   
   org_code_data <- all_data %>% 
-    filter(Org_Code == focus_org_code)
+    dplyr::filter(Org_Code == focus_org_code)
 
   p <- ggplot(all_data, aes(x = RPStartDate, y = Final_Value, group = Org_Code)) +
     geom_line(size = 0.2) + 

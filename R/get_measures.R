@@ -1,12 +1,14 @@
 #' Get Measures
 #'
+#' @param data_path Character string defining the path to the parent data folder
+#'
 #' @return A dataframe of measures data
 #'
 #' @importFrom magrittr %>%
 #' @export
 
-get_measures <- function(){
-  result <- combine_files_to_dataframe("measures")
+get_measures <- function(data_path = "data/msds_download"){
+  result <- combine_files_to_dataframe("measures", data_path)
 
   message("Cleaning... Finalising column data types...")
   # create factors and date columns

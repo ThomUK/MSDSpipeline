@@ -7,7 +7,7 @@ get_data <- function(){
     select(-c(Measure_Description, Measure_Desc, `Measure Description`)) %>% 
     
     # combine similar column names together under standard name
-    unite(Final_Value, c(Value, Final_value), na.rm = TRUE) %>% 
+    unite(Value, c(Value, Final_value), na.rm = TRUE) %>% 
     unite(Org_Level, c(Org_Level, `Org Level`), na.rm = TRUE) %>% 
     unite(Org_Code, c(Org_Code, `Org Code`), na.rm = TRUE) %>% 
     unite(Org_Name, c(Org_Name, `Org Name`), na.rm = TRUE)
@@ -78,7 +78,7 @@ get_data <- function(){
       Dimension,
       Measure,
       Count_Of,
-      Final_Value
+      Value
     )
   
   message("Cleaning... Completed.")

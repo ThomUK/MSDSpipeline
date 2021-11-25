@@ -1,5 +1,5 @@
 #' Make a comparative plot using measures data
-#' ss an example of the data available
+#' as an example of the data available
 #'
 #' @param dtf A dataframe containing measures data
 #' @param measure_name A character vector of the measure name to plot

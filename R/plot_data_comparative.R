@@ -1,3 +1,15 @@
+#' Make a comparative plot using main data
+#' as an example of the data available
+#'
+#' @param dtf A dataframe containing measures data
+#' @param measure_name A character vector of the measure name to plot
+#' @param focus_org_code A character vector of a single org code to highlight in the plot
+#'
+#' @return NULL
+#'
+#' @import ggplot2
+#'
+#' @export
 plot_data_comparative <- function(dtf, measure_name, focus_org_code){
 
   if(ncol(dtf) != 11) stop("The data frame has the wrong number of columns.")

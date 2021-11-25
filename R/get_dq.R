@@ -1,12 +1,14 @@
 #' Get data quality data
 #'
+#' @param data_path Character string defining the path to the parent data folder
+#'
 #' @return A dataframe of data quality data
 #'
 #' @importFrom magrittr %>%
 #' @export
 
-get_dq <- function(){
-  result <- combine_files_to_dataframe("exp-dq")
+get_dq <- function(data_path = "data/msds_download"){
+  result <- combine_files_to_dataframe("exp-dq", data_path)
 
   message("Cleaning... Parsing dates...")
   result <- result %>%

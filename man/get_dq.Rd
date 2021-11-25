@@ -4,7 +4,10 @@
 \alias{get_dq}
 \title{Get data quality data}
 \usage{
-get_dq()
+get_dq(data_path = "data/msds_download")
+}
+\arguments{
+\item{data_path}{Character string defining the path to the parent data folder}
 }
 \value{
 A dataframe of data quality data

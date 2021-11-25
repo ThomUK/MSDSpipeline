@@ -5,13 +5,13 @@ data_comparative_plot <- function(dtf, measure_name, focus_org_code){
   if(!"Count_Of" %in% colnames(dtf)) stop("The 'Count_Of' column is missing from the data frame.")
   
   # find the earliest and latest dates in the full dataset
-  start <- dtf %>% filter(Dimension == measure_name) %>% pull(RPStartDate) %>% min()
-  end <- dtf %>% filter(Dimension == measure_name) %>% pull(RPStartDate) %>% max()
+  start <- dtf %>% dplyr::filter(Dimension == measure_name) %>% dplyr::pull(RPStartDate) %>% min()
+  end <- dtf %>% dplyr::filter(Dimension == measure_name) %>% dplyr::pull(RPStartDate) %>% max()
 
   all_data <- dtf %>% 
-    filter(Dimension == measure_name) %>% 
+    dplyr::filter(Dimension == measure_name) %>% 
     mutate(Final_Value = as.numeric(Final_Value)) %>% 
-    filter(Org_Level == "Provider") %>% 
+    dplyr::filter(Org_Level == "Provider") %>% 
     
     # group by the org code and add missing dates in, to break the line plots at missing data
     group_by(Org_Code) %>% 

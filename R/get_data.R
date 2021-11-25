@@ -14,10 +14,10 @@ get_data <- function(){
     dplyr::select(-c(Measure_Description, Measure_Desc, `Measure Description`)) %>%
 
     # combine similar column names together under standard name
-    dplyr::unite(Value, c(Value, Final_value), na.rm = TRUE) %>%
-    dplyr::unite(Org_Level, c(Org_Level, `Org Level`), na.rm = TRUE) %>%
-    dplyr::unite(Org_Code, c(Org_Code, `Org Code`), na.rm = TRUE) %>%
-    dplyr::unite(Org_Name, c(Org_Name, `Org Name`), na.rm = TRUE)
+    tidyr::unite(Value, c(Value, Final_value), na.rm = TRUE) %>%
+    tidyr::unite(Org_Level, c(Org_Level, `Org Level`), na.rm = TRUE) %>%
+    tidyr::unite(Org_Code, c(Org_Code, `Org Code`), na.rm = TRUE) %>%
+    tidyr::unite(Org_Name, c(Org_Name, `Org Name`), na.rm = TRUE)
 
   message("Cleaning... Parsing dates...")
   result <- result %>%

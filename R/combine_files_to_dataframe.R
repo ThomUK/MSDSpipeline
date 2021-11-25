@@ -22,10 +22,10 @@ combine_files_to_dataframe <- function(type){
   #read the files into a dataframe using map_dfr
   combined_data <- files %>%
     purrr::set_names() %>%
-    purrr::map_dfr(.x = ., .f = read_csv, .id = "source_wb", col_types = cols(.default = "c"))
+    purrr::map_dfr(.x = ., .f = readr::read_csv, .id = "source_wb", col_types = readr::cols(.default = "c"))
 
   #success summary
-  message(paste0("Data from ", length(combined_data %>% pull(source_wb) %>% unique()) ," files appear in the data frame."))
+  message(paste0("Data from ", length(combined_data %>% dplyr::pull(source_wb) %>% unique()) ," files appear in the data frame."))
   message(paste0(nrow(combined_data), " rows in total."))
 
   return(combined_data)

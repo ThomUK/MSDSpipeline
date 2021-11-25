@@ -1,0 +1,11 @@
+Package: MSDSpipeline
+Title: Download, join, and tidy the public NHS Maternity Services Data
+Version: 0.0.0.9000
+Authors@R: 
+    person("Tom", "Smith", , "tomsmith_uk@hotmail.com", role = c("aut", "cre"))
+Description: Automatically download, join, and clean the NHS Digital Maternity Services Monthly Statistics data (MSMS), which is derived from the Maternity Services Data Set (MSDS). When new information is released by NHS Digital, re-running the scripts will add the new information to your downloaded data, allowing analysis on the full dataset.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2

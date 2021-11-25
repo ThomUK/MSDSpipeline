@@ -1,4 +1,4 @@
-# NHS-MSDS-pipeline
+# MSDSpipeline
 Automatically download, join, and clean the NHS Digital Maternity Services Monthly Statistics data (MSMS), which is derived from the Maternity Services Data Set (MSDS). When new information is released by NHS Digital, re-running the scripts will add the new information to your downloaded data, allowing analysis on the full dataset.  
 
 ## Project Description

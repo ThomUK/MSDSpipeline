@@ -16,7 +16,7 @@ sort_data_into_subfolders <- function(download_location){
   new_files <- list.files(path = download_location)
 
   # move to subfolders
-  map(new_files, move_file_into_subfolder)
+  purrr::map(new_files, move_file_into_subfolder, folder = download_location)
 
   # handle a mis-named file that gets sorted to the wrong folder automatically
   if(file.exists(paste0(getwd(),"/data/downloaded/CQIM/msds-jun2020-CQIM_v3.csv"))){
@@ -27,5 +27,6 @@ sort_data_into_subfolders <- function(download_location){
   }
 
   message("Data has been sorted into subfolders.")
-  message("You may want to check the 'miscellaneous' folder for any new data that has be placed there in error (for example because of a filename typo).")
+  message("You may want to check the 'miscellaneous' folder for any new data that has be placed there in error...")
+  message("(for example because of a filename typo).")
 }

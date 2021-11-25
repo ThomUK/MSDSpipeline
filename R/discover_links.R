@@ -9,7 +9,7 @@
 discover_links <- function(page_url){
 
   #read the page
-  html <- read_html(page_url)
+  html <- rvest::read_html(page_url)
 
   #read the URLs
   url_ <- html %>%
@@ -21,6 +21,6 @@ discover_links <- function(page_url){
     rvest::html_nodes("a") %>%
     rvest::html_text()
 
-  return(tibble(link = link_, url = url_))
+  return(data.frame(link = link_, url = url_))
 
 }

@@ -1,7 +1,7 @@
-move_file_into_subfolder<- function(filename){
+move_file_into_subfolder<- function(filename, folder){
   
   #build the absolute filepath
-  current_abs_path <- paste0(getwd(), "/data/downloaded/", filename)
+  current_abs_path <- paste0(getwd(), "/", folder, "/", filename)
   
   #if the file is actually a directory, return early with no action
   if(file_test("-d", current_abs_path)) return()

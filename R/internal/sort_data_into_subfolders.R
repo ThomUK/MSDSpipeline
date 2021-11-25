@@ -1,13 +1,23 @@
-sort_data_into_subfolders <- function(){
-  
+#' Sort downloaded data into subfolders according to type.
+#' Including individually handling any specific files with filename
+#' inconsistencies which should be sorted to different folders.
+#'
+#' @param download_location The path of the folder containing fresh downloads
+#'
+#' @return NULL
+#'
+#' @noRd
+
+sort_data_into_subfolders <- function(download_location){
+
   message("Sorting data into subfolders.")
-  
+
   # new files are downloaded to the main folder
-  new_files <- list.files(path = "data/downloaded")
-  
+  new_files <- list.files(path = download_location)
+
   # move to subfolders
   map(new_files, move_file_into_subfolder)
-  
+
   # handle a mis-named file that gets sorted to the wrong folder automatically
   if(file.exists(paste0(getwd(),"/data/downloaded/CQIM/msds-jun2020-CQIM_v3.csv"))){
 
@@ -15,8 +25,7 @@ sort_data_into_subfolders <- function(){
     # remove the now-empty CQIM folder
     unlink(paste0(getwd(),"/data/downloaded/CQIM"), recursive = TRUE)
   }
-  
-  
+
   message("Data has been sorted into subfolders.")
   message("You may want to check the 'miscellaneous' folder for any new data that has be placed there in error (for example because of a filename typo).")
 }

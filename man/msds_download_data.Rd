@@ -5,7 +5,7 @@
 \title{Check for, and download MSDS data}
 \usage{
 msds_download_data(
-  destination = "data/downloaded",
+  destination = "data/msds_download",
   check_for_new_data = TRUE,
   force_redownload_all = FALSE
 )

@@ -7,7 +7,7 @@
 #' @return NULL
 #' @export
 
-msds_download_data <- function(destination = "data/downloaded", check_for_new_data = TRUE, force_redownload_all = FALSE){
+msds_download_data <- function(destination = "data/msds_download", check_for_new_data = TRUE, force_redownload_all = FALSE){
 
   if(check_for_new_data == FALSE) return(message("check_for_new_data is set to FALSE, no new data added."))
 
@@ -60,7 +60,7 @@ msds_download_data <- function(destination = "data/downloaded", check_for_new_da
   message(paste0("There are ", length(urls_to_download), " new files to download."))
 
   #map/walk through each file and download it
-  walk(.x = urls_to_download, destination_folder = destination, .f = download_data_from_url)
+  walk(.x = urls_to_download, destination_folder = destination, .f = msds_start_download)
 
   #TODO write filename to a summary table
 

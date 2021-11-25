@@ -1,12 +1,14 @@
 #' Get data
 #'
+#' @param data_path Character string defining the path to the parent data folder
+#'
 #' @return A data frame of data
 #'
 #' @importFrom magrittr %>%
 #' @export
 
-get_data <- function(){
-  result <- combine_files_to_dataframe("exp-data")
+get_data <- function(data_path = "data/msds_download"){
+  result <- combine_files_to_dataframe("exp-data", data_path)
 
   message("Cleaning... Combining columns...")
   result <- result %>%
@@ -24,12 +26,12 @@ get_data <- function(){
     # parse dates presented as both "YYYY-MM-DD" and "DD/MM/YYYY" as dates
     dplyr::mutate(
       ReportingPeriodStartDate = dplyr::case_when(
-        !is.na(as_date(ReportingPeriodStartDate, format = "%d/%m/%Y")) ~ as_date(ReportingPeriodStartDate, format = "%d/%m/%Y"), #if this format works, use it
-        !is.na(as_date(ReportingPeriodStartDate, format = "%Y-%m-%d")) ~ as_date(ReportingPeriodStartDate, format = "%Y-%m-%d") #if this format works, use it
+        !is.na(lubridate::as_date(ReportingPeriodStartDate, format = "%d/%m/%Y")) ~ lubridate::as_date(ReportingPeriodStartDate, format = "%d/%m/%Y"), #if this format works, use it
+        !is.na(lubridate::as_date(ReportingPeriodStartDate, format = "%Y-%m-%d")) ~ lubridate::as_date(ReportingPeriodStartDate, format = "%Y-%m-%d") #if this format works, use it
       ),
       ReportingPeriodEndDate = dplyr::case_when(
-        !is.na(as_date(ReportingPeriodEndDate, format = "%d/%m/%Y")) ~ as_date(ReportingPeriodEndDate, format = "%d/%m/%Y"), #if this format works, use it
-        !is.na(as_date(ReportingPeriodEndDate, format = "%Y-%m-%d")) ~ as_date(ReportingPeriodEndDate, format = "%Y-%m-%d") #if this format works, use it
+        !is.na(lubridate::as_date(ReportingPeriodEndDate, format = "%d/%m/%Y")) ~ lubridate::as_date(ReportingPeriodEndDate, format = "%d/%m/%Y"), #if this format works, use it
+        !is.na(lubridate::as_date(ReportingPeriodEndDate, format = "%Y-%m-%d")) ~ lubridate::as_date(ReportingPeriodEndDate, format = "%Y-%m-%d") #if this format works, use it
       )
     ) %>%
 
@@ -43,11 +45,11 @@ get_data <- function(){
     dplyr::mutate(
       ReportingPeriodStartDate = dplyr::case_when(
         !is.na(ReportingPeriodStartDate) ~ ReportingPeriodStartDate,
-        TRUE ~ floor_date(Period, unit = "month")
+        TRUE ~ lubridate::floor_date(Period, unit = "month")
       ),
       ReportingPeriodEndDate = dplyr::case_when(
         !is.na(ReportingPeriodEndDate) ~ ReportingPeriodEndDate,
-        TRUE ~ ceiling_date(Period, unit = "month")
+        TRUE ~ lubridate::ceiling_date(Period, unit = "month")
       )
     ) %>%
     dplyr::select(-Period) %>%  #remove unnecessary column

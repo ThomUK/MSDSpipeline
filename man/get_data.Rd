@@ -4,7 +4,10 @@
 \alias{get_data}
 \title{Get data}
 \usage{
-get_data()
+get_data(data_path = "data/msds_download")
+}
+\arguments{
+\item{data_path}{Character string defining the path to the parent data folder}
 }
 \value{
 A data frame of data

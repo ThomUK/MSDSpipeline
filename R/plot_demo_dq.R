@@ -10,7 +10,7 @@
 #'
 #' @export
 
-plot_dq_comparative <- function(dtf, focus_org_code){
+plot_demo_dq <- function(dtf, focus_org_code){
 
   if(ncol(dtf) != 12) stop("The data frame has the wrong number of columns.")
   # check for a distinctive column name to loosely check the right info has been passed in
@@ -34,7 +34,7 @@ plot_dq_comparative <- function(dtf, focus_org_code){
   ggplot(summarised_data, aes(x = RPStartDate, y = value, group = Org_Code) ) +
     scale_y_continuous(labels = scales::percent) +
     facet_wrap(vars(Submission), scales = "free_y") +
-    geom_line() +
+    geom_line(size = 0.2, alpha = 0.3) +
     geom_line(summarised_data %>% dplyr::filter(Org_Code == focus_org_code), mapping = aes(group = Submission), colour = "red", size = 1) +
     labs(
       title = paste0("Data quality status, grouped by Org Code"),

@@ -11,7 +11,7 @@
 #'
 #' @export
 #'
-plot_measure_comparative <- function(dtf, measure_name, focus_org_code){
+plot_demo_measure <- function(dtf, measure_name, focus_org_code){
 
   if(ncol(dtf) != 10) stop("The data frame has the wrong number of columns.")
   if(!"Currency" %in% colnames(dtf)) stop("The 'Currency' column is missing from the data frame.")
@@ -26,7 +26,7 @@ plot_measure_comparative <- function(dtf, measure_name, focus_org_code){
     dplyr::filter(Org_Level == "Provider")
 
   p <- ggplot(temp, aes(x = RPStartDate, y = Value, group = Org_Code)) +
-    geom_line(size = 0.2) +
+    geom_line(size = 0.2, alpha = 0.3) +
     geom_line(data = temp %>% dplyr::filter(Org_Code == focus_org_code), col = "red", size = 1) +
     labs(
       title = paste0("Indicator - ", measure_name, " grouped by Org Code"),

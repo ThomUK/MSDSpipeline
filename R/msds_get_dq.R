@@ -7,7 +7,7 @@
 #' @importFrom magrittr %>%
 #' @export
 
-get_dq <- function(data_path = "data/msds_download"){
+msds_get_dq <- function(data_path = "data/msds_download"){
   result <- combine_files_to_dataframe("exp-dq", data_path)
 
   message("Cleaning... Parsing dates...")

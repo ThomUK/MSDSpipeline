@@ -7,7 +7,7 @@
 #' @importFrom magrittr %>%
 #' @export
 
-get_measures <- function(data_path = "data/msds_download"){
+msds_get_measures <- function(data_path = "data/msds_download"){
   result <- combine_files_to_dataframe("measures", data_path)
 
   message("Cleaning... Finalising column data types...")

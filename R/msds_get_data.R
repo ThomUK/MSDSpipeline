@@ -7,7 +7,7 @@
 #' @importFrom magrittr %>%
 #' @export
 
-get_data <- function(data_path = "data/msds_download"){
+msds_get_data <- function(data_path = "data/msds_download"){
   result <- combine_files_to_dataframe("exp-data", data_path)
 
   message("Cleaning... Combining columns...")

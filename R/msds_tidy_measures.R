@@ -1,14 +1,18 @@
 #' Combine and tidy measures data files
 #'
 #' @param data_path Character string defining the path to the parent data folder
+#' @param relative_path Logical (default TRUE). Whether the data_path will be treated as relative to working directory
 #'
 #' @return A dataframe of measures data
 #'
 #' @importFrom magrittr %>%
 #' @export
 
-msds_tidy_measures <- function(data_path = "data/msds_download"){
-  result <- combine_files_to_dataframe("measures", data_path)
+msds_tidy_measures <- function(data_path = "data/msds_download", relative_path = TRUE){
+
+  path <- build_data_path(destination = data_path, relative_path = relative_path)
+
+  result <- combine_files_to_dataframe("measures", path)
 
   message("Cleaning... Finalising column data types...")
   # create factors and date columns

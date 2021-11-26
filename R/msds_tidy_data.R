@@ -1,14 +1,18 @@
 #' Combine and tidy data files
 #'
 #' @param data_path Character string defining the path to the parent data folder
+#' @param relative_path Logical (default TRUE). Whether the data_path will be treated as relative to working directory
 #'
 #' @return A data frame of data
 #'
 #' @importFrom magrittr %>%
 #' @export
 
-msds_tidy_data <- function(data_path = "data/msds_download"){
-  result <- combine_files_to_dataframe("exp-data", data_path)
+msds_tidy_data <- function(data_path = "data/msds_download", relative_path = TRUE){
+
+  path <- build_data_path(destination = data_path, relative_path = relative_path)
+
+  result <- combine_files_to_dataframe("exp-data", path)
 
   message("Cleaning... Combining columns...")
   result <- result %>%

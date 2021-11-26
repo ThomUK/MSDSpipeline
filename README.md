@@ -46,7 +46,8 @@ msds_download_data(destination = "data/msds_download")
 2. Tidy the data you need.
 
 ```r
-# Tidy the data you need.  This will combine and tidy data, including consolidating column names, fixing date formats, and altering data and unit columns in a consistent way.
+# Tidy the data you need.  This will combine and tidy data, including consolidating column names,
+# fixing date formats, and altering data and unit columns in a consistent way.
  measures_data <- msds_tidy_measures()
  exp_data <- msds_tidy_data()
  dq_data <- msds_tidy_dq()

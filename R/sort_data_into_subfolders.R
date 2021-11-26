@@ -19,11 +19,11 @@ sort_data_into_subfolders <- function(download_location){
   purrr::map(new_files, move_file_into_subfolder, folder = download_location)
 
   # handle a mis-named file that gets sorted to the wrong folder automatically
-  if(file.exists(paste0(getwd(),"/data/downloaded/CQIM/msds-jun2020-CQIM_v3.csv"))){
+  if(file.exists(file.path(download_location, "CQIM", "msds-jun2020-CQIM_v3.csv"))){
 
-    move_file(paste0(getwd(),"/data/downloaded/CQIM/msds-jun2020-CQIM_v3.csv"), paste0(getwd(),"/data/downloaded/measures/msds-jun2020-CQIM_v3.csv"))
+    move_file(file.path(download_location, "CQIM", "msds-jun2020-CQIM_v3.csv"), file.path(download_location, "measures", "msds-jun2020-CQIM_v3.csv"))
     # remove the now-empty CQIM folder
-    unlink(paste0(getwd(),"/data/downloaded/CQIM"), recursive = TRUE)
+    unlink(file.path(download_location, "CQIM"), recursive = TRUE)
   }
 
   message("Data has been sorted into subfolders.")

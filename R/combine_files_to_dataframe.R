@@ -16,7 +16,7 @@ combine_files_to_dataframe <- function(type, data_path){
 
   if(!type %in% valid_types) stop("Dataframes can only be created for 'exp-data', 'measures', and 'exp-dq'")
 
-  folder_name <- paste0(getwd(), "/", data_path, "/", type)
+  folder_name <- file.path(data_path, type)
   message(paste0("Combining files from: ", folder_name))
 
   files <- list.files(path = folder_name, full.names = TRUE)

@@ -1,4 +1,4 @@
-#' Get data
+#' Combine and tidy data files
 #'
 #' @param data_path Character string defining the path to the parent data folder
 #'
@@ -7,7 +7,7 @@
 #' @importFrom magrittr %>%
 #' @export
 
-msds_get_data <- function(data_path = "data/msds_download"){
+msds_tidy_data <- function(data_path = "data/msds_download"){
   result <- combine_files_to_dataframe("exp-data", data_path)
 
   message("Cleaning... Combining columns...")

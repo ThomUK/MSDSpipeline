@@ -1,13 +1,16 @@
 #' Check for, and download MSDS data
 #'
 #' @param destination Character. The filepath where downloads will be saved
-#' @param check_for_new_data Logical. Whether to skip checking for updates (to save time)
+#' @param relative_path Logical (default TRUE). Whether the desination path will be treated as relative to working directory
+#' @param check_for_new_data Logical (default TRUE). Set to false to skip checking for updates (to save time)
 #' @param force_redownload_all
 #'
 #' @return NULL
 #' @export
 
-msds_download_data <- function(destination = "data/msds_download", check_for_new_data = TRUE, force_redownload_all = FALSE){
+msds_download_data <- function(destination = "data/msds_download", relative_path = TRUE, check_for_new_data = TRUE, force_redownload_all = FALSE){
+
+  path <- build_data_path(destination = destination, relative_path = relative_path)
 
   if(check_for_new_data){
 
@@ -60,7 +63,7 @@ msds_download_data <- function(destination = "data/msds_download", check_for_new
     message(paste0("There are ", length(urls_to_download), " new files to download."))
 
     #map/walk through each file and download it
-    purrr::walk(.x = urls_to_download, destination_folder = destination, .f = start_download)
+    purrr::walk(.x = urls_to_download, destination_folder = path, .f = start_download)
 
     #TODO write filename to a summary table
 
@@ -69,5 +72,5 @@ msds_download_data <- function(destination = "data/msds_download", check_for_new
 
   message("check_for_new_data is set to FALSE, no new data added.")
 
-  sort_data_into_subfolders(download_location = destination)
+  sort_data_into_subfolders(download_location = path)
 }

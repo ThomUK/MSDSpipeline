@@ -65,6 +65,18 @@ plot_demo_data(exp_data, "TotalBabies", "RX1")
 plot_demo_dq(dq_data, "RX1")
 ```
 
+## Example plot outputs
+
+#### Measure
+![image](https://user-images.githubusercontent.com/10871342/143512658-6ec33cc2-9871-40cd-b7f1-81bbd82d74ee.png)
+
+#### Data
+![image](https://user-images.githubusercontent.com/10871342/143512717-b2ff59c9-a0f8-4583-b5fb-87904d48dc6e.png)
+
+#### DQ
+![image](https://user-images.githubusercontent.com/10871342/143512748-d6bf56e8-5a5a-4299-8c3c-baa99fe68a34.png)
+
+
 ## Contributing
 
 I am always interested to hear from others working with maternity data.  If you spot a problem, please raise an issue, or make a PR.

@@ -7,7 +7,7 @@
 #'
 #' @noRd
 #'
-msds_start_download <- function(url, destination_folder){
+start_download <- function(url, destination_folder){
 
   #get the filename to be downloaded
   destination_filename <- basename(url)

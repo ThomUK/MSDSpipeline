@@ -60,7 +60,7 @@ msds_download_data <- function(destination = "data/msds_download", check_for_new
     message(paste0("There are ", length(urls_to_download), " new files to download."))
 
     #map/walk through each file and download it
-    purrr::walk(.x = urls_to_download, destination_folder = destination, .f = msds_start_download)
+    purrr::walk(.x = urls_to_download, destination_folder = destination, .f = start_download)
 
     #TODO write filename to a summary table
 

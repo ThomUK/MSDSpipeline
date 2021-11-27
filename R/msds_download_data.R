@@ -61,6 +61,7 @@ msds_download_data <- function(destination = "data/msds_download", relative_path
 
   #filter down to a list for downloading
   urls_to_download <- data_links %>%
+    dplyr::filter(already_downloaded == FALSE) %>%
     dplyr::pull(url)
 
   message(paste0("There are ", length(urls_to_download), " new files to download."))

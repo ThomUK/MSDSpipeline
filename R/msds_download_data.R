@@ -49,7 +49,7 @@ msds_download_data <- function(destination = "data/msds_download", relative_path
   message(paste0("There are ", nrow(data_links), " MSDS files available for download."))
 
   #read the filenames of already downloaded files, including those sorted into subfolders
-  existing_files <- list.files(destination, recursive = TRUE)
+  existing_files <- list.files(path, recursive = TRUE)
   message(paste0(length(existing_files), " files have previously been downloaded to this computer."))
 
   #add detail on what has already been downloaded to the dataframe

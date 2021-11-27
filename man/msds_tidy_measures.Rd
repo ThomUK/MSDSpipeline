@@ -17,3 +17,13 @@ A dataframe of measures data
 \description{
 Combine and tidy measures data files
 }
+\examples{
+# read data from the default directory path
+msds_tidy_measures()
+
+# read data from a different (relative) directory path
+msds_tidy_measures(data_path = "a/different/relative/directory")
+
+# read data from an absolute directory path, or network path
+msds_tidy_measures(data_path = "C:/your/hard/drive/msds_data", relative_path = FALSE)
+}

@@ -17,3 +17,13 @@ A data frame of data
 \description{
 Combine and tidy data files
 }
+\examples{
+# read data from the default directory path
+msds_tidy_data()
+
+# read data from a different (relative) directory path
+msds_tidy_data(data_path = "a/different/relative/directory")
+
+# read data from an absolute directory path, or network path
+msds_tidy_data(data_path = "C:/your/hard/drive/msds_data", relative_path = FALSE)
+}

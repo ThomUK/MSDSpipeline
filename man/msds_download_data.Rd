@@ -14,3 +14,13 @@ msds_download_data(destination = "data/msds_download", relative_path = TRUE)
 \description{
 Check for, and download MSDS data
 }
+\examples{
+# download data to the default directory path
+msds_download_data()
+
+# download data to a different (relative) directory path
+msds_download_data(destination = "a/different/directory")
+
+# download data to an absolute directory path, or network path
+msds_download_data(destination = "C:/your/hard/drive/msds_data", relative_path = FALSE)
+}

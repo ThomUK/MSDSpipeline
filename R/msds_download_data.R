@@ -1,7 +1,7 @@
 #' Check for, and download MSDS data
 #'
 #' @param destination Character. The filepath where downloads will be saved
-#' @param relative_path Logical (default TRUE). Whether the desination path will be treated as relative to working directory
+#' @param relative_path Logical (default TRUE). Whether the destination path will be treated as relative to working directory
 #'
 #' @return NULL
 #' @export

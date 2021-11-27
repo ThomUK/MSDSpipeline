@@ -1,7 +1,6 @@
 #' Check for, and download MSDS data
 #'
 #' @param destination Character. The filepath where downloads will be saved
-#' @param relative_path Logical (default TRUE). Whether the destination path will be treated as relative to working directory
 #'
 #' @return NULL
 #' @export
@@ -14,11 +13,12 @@
 #' msds_download_data(destination = "a/different/directory")
 #'
 #' # download data to an absolute directory path, or network path
-#' msds_download_data(destination = "C:/your/hard/drive/msds_data", relative_path = FALSE)
+#' msds_download_data(destination = "C:/your/hard/drive/msds_data")
+#' msds_download_data(destination = "//your/network/drive/msds_data")
 
-msds_download_data <- function(destination = "data/msds_download", relative_path = TRUE){
+msds_download_data <- function(destination = "data/msds_download"){
 
-  path <- build_data_path(destination = destination, relative_path = relative_path)
+  path <- build_data_path(destination = destination)
 
   main_url <- "https://digital.nhs.uk/data-and-information/publications/statistical/maternity-services-monthly-statistics"
 

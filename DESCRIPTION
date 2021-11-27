@@ -17,6 +17,7 @@ Imports:
     lubridate,
     magrittr,
     purrr,
+    R.utils,
     readr,
     rvest,
     scales,

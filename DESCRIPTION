@@ -13,10 +13,13 @@ Imports:
     assertthat,
     dplyr,
     forcats,
+    ggplot2,
     lubridate,
     magrittr,
     purrr,
     readr,
+    rvest,
+    scales,
     stringr,
     tidyr
 Suggests: 

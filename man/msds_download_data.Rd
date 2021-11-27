@@ -4,12 +4,10 @@
 \alias{msds_download_data}
 \title{Check for, and download MSDS data}
 \usage{
-msds_download_data(destination = "data/msds_download", relative_path = TRUE)
+msds_download_data(destination = "data/msds_download")
 }
 \arguments{
 \item{destination}{Character. The filepath where downloads will be saved}
-
-\item{relative_path}{Logical (default TRUE). Whether the desination path will be treated as relative to working directory}
 }
 \description{
 Check for, and download MSDS data

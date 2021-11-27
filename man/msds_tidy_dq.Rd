@@ -4,14 +4,26 @@
 \alias{msds_tidy_dq}
 \title{Combine and tidy data quality data}
 \usage{
-msds_tidy_dq(data_path = "data/msds_download")
+msds_tidy_dq(data_path = "data/msds_download", relative_path = TRUE)
 }
 \arguments{
 \item{data_path}{Character string defining the path to the parent data folder}
+
+\item{relative_path}{Logical (default TRUE). Whether the data_path will be treated as relative to working directory}
 }
 \value{
 A dataframe of data quality data
 }
 \description{
 Combine and tidy data quality data
+}
+\examples{
+# read data from the default directory path
+msds_tidy_dq()
+
+# read data from a different (relative) directory path
+msds_tidy_dq(data_path = "a/different/relative/directory")
+
+# read data from an absolute directory path, or network path
+msds_tidy_dq(data_path = "C:/your/hard/drive/msds_data", relative_path = FALSE)
 }

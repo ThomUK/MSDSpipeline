@@ -4,10 +4,12 @@
 \alias{msds_tidy_data}
 \title{Combine and tidy data files}
 \usage{
-msds_tidy_data(data_path = "data/msds_download")
+msds_tidy_data(data_path = "data/msds_download", relative_path = TRUE)
 }
 \arguments{
 \item{data_path}{Character string defining the path to the parent data folder}
+
+\item{relative_path}{Logical (default TRUE). Whether the data_path will be treated as relative to working directory}
 }
 \value{
 A data frame of data

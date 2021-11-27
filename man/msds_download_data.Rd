@@ -4,18 +4,12 @@
 \alias{msds_download_data}
 \title{Check for, and download MSDS data}
 \usage{
-msds_download_data(
-  destination = "data/msds_download",
-  check_for_new_data = TRUE,
-  force_redownload_all = FALSE
-)
+msds_download_data(destination = "data/msds_download", relative_path = TRUE)
 }
 \arguments{
 \item{destination}{Character. The filepath where downloads will be saved}
 
-\item{check_for_new_data}{Logical. Whether to skip checking for updates (to save time)}
-
-\item{force_redownload_all}{}
+\item{relative_path}{Logical (default TRUE). Whether the desination path will be treated as relative to working directory}
 }
 \description{
 Check for, and download MSDS data

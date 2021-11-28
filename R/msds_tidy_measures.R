@@ -25,6 +25,9 @@ msds_tidy_measures <- function(data_path = "data/msds_download"){
 
   result <- combine_files_to_dataframe("measures", path)
 
+  message("Cleaning... Fixing data inconsistencies...")
+  result <- result %>% fix_measures_mbrrace_group()
+
   message("Cleaning... Finalising column data types...")
   # create factors and date columns
   result <- result %>%

@@ -8,6 +8,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # read data from the default directory path
 #' msds_tidy_data()
 #'
@@ -16,6 +17,7 @@
 #'
 #' # read data from an absolute directory path, or network path
 #' msds_tidy_data(data_path = "C:/your/hard/drive/msds_data")
+#' }
 
 msds_tidy_data <- function(data_path = "data/msds_download"){
 

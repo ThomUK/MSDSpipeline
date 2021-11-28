@@ -16,6 +16,7 @@ A dataframe of data quality data
 Combine and tidy data quality data
 }
 \examples{
+\dontrun{
 # read data from the default directory path
 msds_tidy_dq()
 
@@ -24,4 +25,5 @@ msds_tidy_dq(data_path = "a/different/relative/directory")
 
 # read data from an absolute directory path, or network path
 msds_tidy_dq(data_path = "C:/your/hard/drive/msds_data")
+}
 }

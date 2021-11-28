@@ -30,8 +30,8 @@ msds_tidy_measures <- function(data_path = "data/msds_download"){
   result <- result %>%
     dplyr::mutate(
       RPStartDate = dplyr::case_when(
-        stringr::str_detect(RPStartDate, "/") ~ lubridate::dmy(RPStartDate),
-        TRUE ~ as.Date(as.numeric(RPStartDate), origin = "1899-12-30")
+        stringr::str_detect(RPStartDate, "/") ~ lubridate::dmy(RPStartDate), # rows likely came from the csv files
+        TRUE ~ as.Date(as.numeric(RPStartDate), origin = "1899-12-30") # rows likely came from excel files (with numeric dates)
       ),
       RPEndDate = dplyr::case_when(
         stringr::str_detect(RPEndDate, "/") ~ lubridate::dmy(RPEndDate),

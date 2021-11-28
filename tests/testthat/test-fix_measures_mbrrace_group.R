@@ -30,18 +30,18 @@ test_that("the problem rows no longer exist", {
   o <- fix_measures_mbrrace_group(problem)
 
   expect_equal(
-    nrow(o$Org_Code == "Group 3. 4000 or more"),
-    NULL
+    nrow(o %>% dplyr::filter(Org_Code == "Group 3. 4000 or more")),
+    0
   )
 
   expect_equal(
-    nrow(o$Org_Code == "Group 4. 2000 - 3999"),
-    NULL
+    nrow(o %>% dplyr::filter(Org_Code == "Group 4. 2000 - 3999")),
+    0
   )
 
   expect_equal(
-    nrow(o$Org_Code == "Group 5. under 2000"),
-    NULL
+    nrow(o %>% dplyr::filter(Org_Code == "Group 5. under 2000")),
+    0
   )
 
 })

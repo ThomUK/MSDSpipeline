@@ -13,6 +13,7 @@ msds_download_data(destination = "data/msds_download")
 Check for, and download MSDS data
 }
 \examples{
+\dontrun{
 # download data to the default directory path
 msds_download_data()
 
@@ -22,4 +23,5 @@ msds_download_data(destination = "a/different/directory")
 # download data to an absolute directory path, or network path
 msds_download_data(destination = "C:/your/hard/drive/msds_data")
 msds_download_data(destination = "//your/network/drive/msds_data")
+}
 }

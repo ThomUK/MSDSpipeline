@@ -1,3 +1,5 @@
 ^MSDSpipeline\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^data-raw$
+^wip-temp$

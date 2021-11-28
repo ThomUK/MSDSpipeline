@@ -29,8 +29,14 @@ msds_tidy_measures <- function(data_path = "data/msds_download"){
   # create factors and date columns
   result <- result %>%
     dplyr::mutate(
-      RPStartDate = lubridate::dmy(RPStartDate),
-      RPEndDate = lubridate::dmy(RPEndDate),
+      RPStartDate = dplyr::case_when(
+        stringr::str_detect(RPStartDate, "/") ~ lubridate::dmy(RPStartDate), # rows likely came from the csv files
+        TRUE ~ as.Date(as.numeric(RPStartDate), origin = "1899-12-30") # rows likely came from excel files (with numeric dates)
+      ),
+      RPEndDate = dplyr::case_when(
+        stringr::str_detect(RPEndDate, "/") ~ lubridate::dmy(RPEndDate),
+        TRUE ~ as.Date(as.numeric(RPEndDate), origin = "1899-12-30")
+      ),
       Org_Level = forcats::as_factor(Org_Level),
       Org_Code = forcats::as_factor(Org_Code),
       Org_Name = forcats::as_factor(Org_Name),

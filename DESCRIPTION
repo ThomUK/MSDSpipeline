@@ -23,6 +23,7 @@ Imports:
     rvest,
     scales,
     stringr,
+    tibble,
     tidyr,
     tools
 Suggests: 

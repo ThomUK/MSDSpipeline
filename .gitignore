@@ -3,5 +3,5 @@
 .RData
 .Ruserdata
 
-#ignore everything in the data folder
-data/*
+#ignore everything in the wip-temp folder (used for local development)
+wip-temp/*

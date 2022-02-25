@@ -42,12 +42,21 @@ msds_tidy_measures <- function(data_path = "data/msds_download"){
         stringr::str_detect(RPEndDate, "/") ~ lubridate::dmy(RPEndDate),
         TRUE ~ as.Date(as.numeric(RPEndDate), origin = "1899-12-30")
       ),
+      Org_Level = dplyr::case_when(
+        Org_Level %in% c("Mbrrace", "MBRRACE Grouping") ~ "MBRRACE Grouping", # consolidate two category names
+        Org_Level == "Provider" ~ "Provider Trust", # rename this category
+        Org_Level %in% c("NHS England (Region)", "Region") ~ "NHS England Region", # consolidate and rename this category
+        TRUE ~ Org_Level
+      ),
       Org_Level = forcats::as_factor(Org_Level),
       Org_Code = forcats::as_factor(Org_Code),
       Org_Name = forcats::as_factor(Org_Name),
       IndicatorFamily = forcats::as_factor(IndicatorFamily),
       Indicator = forcats::as_factor(Indicator),
       Currency = forcats::as_factor(Currency)
+    ) %>%
+    rename(
+      Indicator_Family = IndicatorFamily
     )
 
   message("Cleaning... Finalising column order...")
@@ -60,7 +69,7 @@ msds_tidy_measures <- function(data_path = "data/msds_download"){
       Org_Level,
       Org_Code,
       Org_Name,
-      IndicatorFamily,
+      Indicator_Family,
       Indicator,
       Currency,
       Value

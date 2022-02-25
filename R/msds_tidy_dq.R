@@ -41,8 +41,8 @@ msds_tidy_dq <- function(data_path = "data/msds_download"){
 
     # standardise column names
     dplyr::rename(
-      RPStartDate = ReportingPeriodStartDate,
-      RPEndDate = ReportingPeriodEndDate
+      Start_Date = ReportingPeriodStartDate,
+      End_Date = ReportingPeriodEndDate
     )
 
   message("Cleaning... Finalising column data types...")

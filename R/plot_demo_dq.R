@@ -18,7 +18,7 @@ plot_demo_dq <- function(dtf, focus_org_code){
 
   # calculate summary percentages by org code
   summarised_data <- dtf %>%
-    dplyr::group_by(Org_Code, RPStartDate) %>%
+    dplyr::group_by(Org_Code, Start_Date) %>%
     dplyr::summarise(
       Valid = sum(Valid) / sum(Denominator),
       Default = sum(Default) / sum(Denominator),
@@ -31,7 +31,7 @@ plot_demo_dq <- function(dtf, focus_org_code){
     tidyr::pivot_longer(c(Valid, Default, Invalid, Missing), names_to = "Submission", values_to = "value")
 
   # make the plot
-  ggplot(summarised_data, aes(x = RPStartDate, y = value, group = Org_Code) ) +
+  ggplot(summarised_data, aes(x = Start_Date, y = value, group = Org_Code) ) +
     scale_y_continuous(labels = scales::percent) +
     facet_wrap(vars(Submission), scales = "free_y") +
     geom_line(size = 0.2, alpha = 0.3) +

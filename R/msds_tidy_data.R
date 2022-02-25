@@ -92,7 +92,7 @@ msds_tidy_data <- function(data_path = "data/msds_download"){
   # order the columns
   result <- result %>%
     dplyr::select(
-      source_wb,
+      Source_WB,
       Start_Date,
       End_Date,
       Org_Level,

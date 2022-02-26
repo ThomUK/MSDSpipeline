@@ -30,18 +30,24 @@ msds_tidy_measures <- function(data_path = "data/msds_download"){
     fix_measures_mbrrace_group() %>%
     fix_measures_org_names()
 
+  message("Cleaning... Fixing date formats...")
+  suppressWarnings(
+    result <- result %>%
+      dplyr::mutate(
+        Start_Date = dplyr::case_when(
+          stringr::str_detect(RPStartDate, "/") ~ as.Date(RPStartDate, format = "%d/%m/%Y"), # rows likely came from the csv files
+          TRUE ~ as.Date(as.numeric(RPStartDate), origin = "1899-12-30") # rows likely came from excel files (with numeric dates)
+        ),
+        End_Date = dplyr::case_when(
+          stringr::str_detect(RPEndDate, "/") ~ as.Date(RPEndDate, format = "%d/%m/%Y"),
+          TRUE ~ as.Date(as.numeric(RPEndDate), origin = "1899-12-30")
+        )
+      )
+  )
+
   message("Cleaning... Finalising column data types...")
-  # create factors and date columns
   result <- result %>%
     dplyr::mutate(
-      Start_Date = dplyr::case_when(
-        stringr::str_detect(RPStartDate, "/") ~ as.Date(RPStartDate, format = "%d/%m/%Y"), # rows likely came from the csv files
-        TRUE ~ as.Date(RPStartDate, origin = "1899-12-30") # rows likely came from excel files (with numeric dates)
-      ),
-      End_Date = dplyr::case_when(
-        stringr::str_detect(RPEndDate, "/") ~ as.Date(RPEndDate, format = "%d/%m/%Y"),
-        TRUE ~ as.Date(RPEndDate, origin = "1899-12-30")
-      ),
       Org_Level = dplyr::case_when(
         Org_Level %in% c("Mbrrace", "MBRRACE Grouping") ~ "MBRRACE Grouping", # consolidate two category names
         Org_Level == "Provider" ~ "Provider Trust", # rename this category

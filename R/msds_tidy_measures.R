@@ -35,12 +35,12 @@ msds_tidy_measures <- function(data_path = "data/msds_download"){
   result <- result %>%
     dplyr::mutate(
       Start_Date = dplyr::case_when(
-        stringr::str_detect(RPStartDate, "/") ~ lubridate::dmy(RPStartDate), # rows likely came from the csv files
-        TRUE ~ as.Date(as.numeric(RPStartDate), origin = "1899-12-30") # rows likely came from excel files (with numeric dates)
+        stringr::str_detect(RPStartDate, "/") ~ as.Date(RPStartDate, format = "%d/%m/%Y"), # rows likely came from the csv files
+        TRUE ~ as.Date(RPStartDate, origin = "1899-12-30") # rows likely came from excel files (with numeric dates)
       ),
       End_Date = dplyr::case_when(
-        stringr::str_detect(RPEndDate, "/") ~ lubridate::dmy(RPEndDate),
-        TRUE ~ as.Date(as.numeric(RPEndDate), origin = "1899-12-30")
+        stringr::str_detect(RPEndDate, "/") ~ as.Date(RPEndDate, format = "%d/%m/%Y"),
+        TRUE ~ as.Date(RPEndDate, origin = "1899-12-30")
       ),
       Org_Level = dplyr::case_when(
         Org_Level %in% c("Mbrrace", "MBRRACE Grouping") ~ "MBRRACE Grouping", # consolidate two category names

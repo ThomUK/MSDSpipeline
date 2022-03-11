@@ -107,13 +107,13 @@ msds_tidy_data <- function(data_path = "data/msds_download", do_tidying = TRUE){
   # create factors
   result <- result %>%
     dplyr::mutate(
-      Dimension = forcats::as_factor(Dimension),
-      Org_Level = forcats::as_factor(Org_Level),
-      Org_Code = forcats::as_factor(Org_Code),
-      Org_Name = forcats::as_factor(Org_Name),
-      Measure = forcats::as_factor(Measure),
-      Count_Of = forcats::as_factor(Count_Of),
-      Org_Geog_Code = forcats::as_factor(Org_Geog_Code),
+      Dimension = factor(toupper(Dimension)),
+      Org_Level = factor(toupper(Org_Level)),
+      Org_Code = factor(toupper(Org_Code)),
+      Org_Name = factor(toupper(Org_Name)),
+      Measure = factor(toupper(Measure)),
+      Count_Of = factor(toupper(Count_Of)),
+      Org_Geog_Code = factor(toupper(Org_Geog_Code)),
     )
 
   message("Cleaning... Finalising column order...")

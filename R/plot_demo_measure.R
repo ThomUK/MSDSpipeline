@@ -25,7 +25,7 @@ plot_demo_measure <- function(dtf, measure_name, focus_org_code){
     dplyr::mutate(Value = as.numeric(Value)) %>%
     dplyr::filter(Org_Level == "Provider")
 
-  p <- ggplot(temp, aes(x = RPStartDate, y = Value, group = Org_Code)) +
+  p <- ggplot(temp, aes(x = Start_Date, y = Value, group = Org_Code)) +
     geom_line(size = 0.2, alpha = 0.3) +
     geom_line(data = temp %>% dplyr::filter(Org_Code == focus_org_code), col = "red", size = 1) +
     labs(

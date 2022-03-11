@@ -25,10 +25,10 @@ combine_files_to_dataframe <- function(type, data_path){
   #read the files into a dataframe using map_dfr
   combined_data <- files %>%
     purrr::set_names() %>%
-    purrr::map_dfr(.x = ., .f = read_csv_or_xlsx, .id = "source_wb")
+    purrr::map_dfr(.x = ., .f = read_csv_or_xlsx, .id = "Source_WB")
 
   #success summary
-  message(paste0("Data from ", length(combined_data %>% dplyr::pull(source_wb) %>% unique()) ," files appear in the data frame."))
+  message(paste0("Data from ", length(combined_data %>% dplyr::pull(Source_WB) %>% unique()) ," files appear in the data frame."))
   message(paste0(nrow(combined_data), " rows in total."))
 
   return(combined_data)

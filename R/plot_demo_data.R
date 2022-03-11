@@ -17,8 +17,8 @@ plot_demo_data <- function(dtf, measure_name, focus_org_code){
   if(!"Count_Of" %in% colnames(dtf)) stop("The 'Count_Of' column is missing from the data frame.")
 
   # find the earliest and latest dates in the full dataset
-  start <- dtf %>% dplyr::filter(Dimension == measure_name) %>% dplyr::pull(RPStartDate) %>% min()
-  end <- dtf %>% dplyr::filter(Dimension == measure_name) %>% dplyr::pull(RPStartDate) %>% max()
+  start <- dtf %>% dplyr::filter(Dimension == measure_name) %>% dplyr::pull(Start_Date) %>% min()
+  end <- dtf %>% dplyr::filter(Dimension == measure_name) %>% dplyr::pull(Start_Date) %>% max()
 
   all_data <- dtf %>%
     dplyr::filter(Dimension == measure_name) %>%
@@ -27,14 +27,14 @@ plot_demo_data <- function(dtf, measure_name, focus_org_code){
 
     # group by the org code and add missing dates in, to break the line plots at missing data
     dplyr::group_by(Org_Code) %>%
-    tidyr::complete(RPStartDate = seq.Date(start, end, by="month")) %>%
+    tidyr::complete(Start_Date = seq.Date(start, end, by="month")) %>%
     dplyr::ungroup()
 
 
   org_code_data <- all_data %>%
     dplyr::filter(Org_Code == focus_org_code)
 
-  p <- ggplot(all_data, aes(x = RPStartDate, y = Value, group = Org_Code)) +
+  p <- ggplot(all_data, aes(x = Start_Date, y = Value, group = Org_Code)) +
     geom_line(size = 0.2, alpha = 0.3) +
     geom_line(data = org_code_data, col = "red", size = 1) +
     labs(

@@ -71,8 +71,8 @@ msds_tidy_data <- function(data_path = "data/msds_download"){
 
     # standardise column names
     dplyr::rename(
-      RPStartDate = ReportingPeriodStartDate,
-      RPEndDate = ReportingPeriodEndDate
+      Start_Date = ReportingPeriodStartDate,
+      End_Date = ReportingPeriodEndDate
     )
 
   message("Cleaning... Finalising column data types...")
@@ -92,9 +92,9 @@ msds_tidy_data <- function(data_path = "data/msds_download"){
   # order the columns
   result <- result %>%
     dplyr::select(
-      source_wb,
-      RPStartDate,
-      RPEndDate,
+      Source_WB,
+      Start_Date,
+      End_Date,
       Org_Level,
       Org_Geog_Code,
       Org_Code,

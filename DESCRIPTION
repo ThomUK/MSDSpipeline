@@ -13,6 +13,7 @@ Imports:
     assertthat,
     dplyr,
     ggplot2,
+    glue,
     lubridate,
     magrittr,
     purrr,

@@ -30,7 +30,7 @@ msds_tidy_measures <- function(data_path = "data/msds_download", do_tidying = TR
 
   message("Cleaning... Fixing data inconsistencies...")
   result <- result %>%
-    fix_measures_mbrrace_group() %>%
+    fix_mbrrace_group() %>%
     fix_measures_org_names()
 
   message("Cleaning... Fixing date formats...")

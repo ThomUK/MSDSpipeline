@@ -106,6 +106,8 @@ msds_tidy_data <- function(data_path = "data/msds_download", do_tidying = TRUE){
   message("Cleaning... Fix raw data category name inconsistencies...")
   result <- result %>%
 
+    fix_mbrrace_group() %>%
+
     dplyr::mutate(
       Org_Level = dplyr::case_when(
         Org_Level %in% c("Provider", "Trust") ~ "Provider Trust", # consolidate and rename this category
@@ -118,6 +120,7 @@ msds_tidy_data <- function(data_path = "data/msds_download", do_tidying = TRUE){
       ),
       Org_Name = dplyr::case_when(
         Org_Level == "National" & Org_Code == "All" ~ "ALL SUBMITTERS",
+        toupper(Org_Level) == "MBRRACE GROUPING" ~ Org_Code,
         TRUE ~ Org_Name
       )
     )

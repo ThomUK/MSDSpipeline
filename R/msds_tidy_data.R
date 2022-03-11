@@ -1,6 +1,7 @@
 #' Combine and tidy data files
 #'
 #' @param data_path Character string defining the path to the parent data folder
+#' @param do_tidying Logical.  When FALSE, returns the joined but uncleaned dataset
 #'
 #' @return A data frame of data
 #'
@@ -19,61 +20,88 @@
 #' msds_tidy_data(data_path = "C:/your/hard/drive/msds_data")
 #' }
 
-msds_tidy_data <- function(data_path = "data/msds_download"){
+msds_tidy_data <- function(data_path = "data/msds_download", do_tidying = TRUE){
 
   path <- build_data_path(destination = data_path)
 
   result <- combine_files_to_dataframe("exp-data", path)
+
+  if(!do_tidying) return(result) # skip the data cleaning (useful for debugging or demo of package purpose)
 
   message("Cleaning... Combining columns...")
   result <- result %>%
     # 3 measure description columns can safely be dropped as their data appears in the "Measure" column
     dplyr::select(-c(Measure_Description, Measure_Desc, `Measure Description`)) %>%
 
-    # combine similar column names together under standard name
-    tidyr::unite(Value, c(Value, Final_value), na.rm = TRUE) %>%
-    tidyr::unite(Org_Level, c(Org_Level, `Org Level`), na.rm = TRUE) %>%
-    tidyr::unite(Org_Code, c(Org_Code, `Org Code`), na.rm = TRUE) %>%
-    tidyr::unite(Org_Name, c(Org_Name, `Org Name`), na.rm = TRUE)
+    # standardise similar column names
+    dplyr::mutate(
+      Value = dplyr::case_when(
+        !is.na(Final_value) ~ Final_value,
+        TRUE ~ Value
+      ),
+      Final_Value = NULL, # remove the disused column
+
+      Org_Level = dplyr::case_when(
+        !is.na(`Org Level`) ~ `Org Level`,
+        TRUE ~ Org_Level
+      ),
+      `Org Level` = NULL, # remove the disused column
+
+      Org_Code = dplyr::case_when(
+        !is.na(`Org Code`) ~ `Org Code`,
+        TRUE ~ Org_Code
+      ),
+      `Org Code` = NULL, # remove the disused column
+
+      Org_Name = dplyr::case_when(
+        !is.na(`Org Name`) ~ `Org Name`,
+        TRUE ~ Org_Name
+      ),
+      `Org Name` = NULL # remove the disused column
+    )
 
   message("Cleaning... Parsing dates...")
   result <- result %>%
     # parse dates presented as both "YYYY-MM-DD" and "DD/MM/YYYY" as dates
     dplyr::mutate(
-      ReportingPeriodStartDate = dplyr::case_when(
-        !is.na(lubridate::as_date(ReportingPeriodStartDate, format = "%d/%m/%Y")) ~ lubridate::as_date(ReportingPeriodStartDate, format = "%d/%m/%Y"), #if this format works, use it
-        !is.na(lubridate::as_date(ReportingPeriodStartDate, format = "%Y-%m-%d")) ~ lubridate::as_date(ReportingPeriodStartDate, format = "%Y-%m-%d") #if this format works, use it
-      ),
-      ReportingPeriodEndDate = dplyr::case_when(
-        !is.na(lubridate::as_date(ReportingPeriodEndDate, format = "%d/%m/%Y")) ~ lubridate::as_date(ReportingPeriodEndDate, format = "%d/%m/%Y"), #if this format works, use it
-        !is.na(lubridate::as_date(ReportingPeriodEndDate, format = "%Y-%m-%d")) ~ lubridate::as_date(ReportingPeriodEndDate, format = "%Y-%m-%d") #if this format works, use it
-      )
-    ) %>%
 
+      # parse the two start date formats into two temp columns
+      sd1 = as.Date(ReportingPeriodStartDate, format = "%d/%m/%Y"),
+      sd2 = as.Date(ReportingPeriodStartDate, format = "%Y-%m-%d"),
+      # combine then remove temp columns
+      Start_Date = if_else(!is.na(sd1), sd1, sd2),
+      sd1 = NULL,
+      sd2 = NULL,
+
+      # parse the two end date formats into two temp columns
+      ed1 = as.Date(ReportingPeriodEndDate, format = "%d/%m/%Y"),
+      ed2 = as.Date(ReportingPeriodEndDate, format = "%Y-%m-%d"),
+      # combine then remove temp columns
+      End_Date = if_else(!is.na(ed1), ed1, ed2),
+      ed1 = NULL,
+      ed2 = NULL
+    )
+
+  message("Cleaning... Parsing period column into dates...")
+  result <- result %>%
     # standardise the date formatting in the "Period" column
     # inputs are of the format "Dec-18 and "December 2018"
-    dplyr::mutate(Period = ifelse(is.na(Period), Period, paste0("1-",Period))) %>% #add 1- to everything, to represent the 1st of the month
+    dplyr::mutate(Period = if_else(is.na(Period), Period, paste0("1-",Period))) %>% #add 1- to everything, to represent the 1st of the month
     dplyr::mutate(Period = stringr::str_replace_all(Period, "-", " ")) %>% #replace "-" in date with space
-    dplyr::mutate(Period = lubridate::dmy(Period)) %>% #make it a date type column
+    dplyr::mutate(Period = as.Date(Period, tryFormats = c("%d %b %y", "%d %B %Y"))) %>% #make it a date type column
 
     # create reporting period start and end dates from the Period date
     dplyr::mutate(
-      ReportingPeriodStartDate = dplyr::case_when(
-        !is.na(ReportingPeriodStartDate) ~ ReportingPeriodStartDate,
+      Start_Date = dplyr::case_when(
+        !is.na(Start_Date) ~ Start_Date,
         TRUE ~ lubridate::floor_date(Period, unit = "month")
       ),
-      ReportingPeriodEndDate = dplyr::case_when(
-        !is.na(ReportingPeriodEndDate) ~ ReportingPeriodEndDate,
+      End_Date = dplyr::case_when(
+        !is.na(End_Date) ~ End_Date,
         TRUE ~ lubridate::ceiling_date(Period, unit = "month")
       )
     ) %>%
-    dplyr::select(-Period) %>%  #remove unnecessary column
-
-    # standardise column names
-    dplyr::rename(
-      Start_Date = ReportingPeriodStartDate,
-      End_Date = ReportingPeriodEndDate
-    )
+    dplyr::select(-Period) #remove unnecessary column
 
   message("Cleaning... Finalising column data types...")
   # create factors

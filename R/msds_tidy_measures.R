@@ -61,9 +61,50 @@ msds_tidy_measures <- function(data_path = "data/msds_download"){
       Indicator = forcats::as_factor(Indicator),
       Currency = forcats::as_factor(Currency)
     ) %>%
-    rename(
+    dplyr::rename(
       Indicator_Family = IndicatorFamily
     )
+
+    message("Cleaning... Pivoting result values...")
+    result <- result %>%
+    # pivot the Rate, Numerator, Denominator, Result, and Rate per Thousand columns out
+    tidyr::pivot_wider(
+      -c(Currency, Value),
+      names_from = "Currency",
+      values_from = "Value"
+    )
+
+    message("Cleaning... Cleaning rates and failure reasons...")
+    result <- result %>%
+    # create a specific column to hold failure reasons
+    dplyr::mutate(
+      Failure_Comment = dplyr::case_when(
+        Rate == "Low DQ" ~ "Low DQ",
+        Rate == "DNS" ~ "DNS",
+        `Rate per Thousand` == "Low DQ" ~ "Low DQ",
+        `Rate per Thousand` == "DNS" ~ "DNS",
+        `Rate per Thousand` == "*" ~ "SMALL NUMBER",
+      ),
+
+      # replace the original failure reasons with NAs
+      Rate = dplyr::case_when(
+        Failure_Comment == "Low DQ" ~ NA_character_,
+        Failure_Comment == "DNS" ~ NA_character_,
+        TRUE ~ Rate
+      ),
+      `Rate per Thousand` = dplyr::case_when(
+        Failure_Comment == "Low DQ" ~ NA_character_,
+        Failure_Comment == "DNS" ~ NA_character_,
+        Failure_Comment == "SMALL NUMBER" ~ NA_character_,
+        TRUE ~ `Rate per Thousand`
+      ),
+
+      # assign appropriate types
+      Failure_Comment = factor(Failure_Comment), # convert to factor
+      Rate = as.numeric(Rate),
+      `Rate per Thousand` = as.numeric(`Rate per Thousand`),
+    )
+
 
   message("Cleaning... Finalising column order...")
   # order the columns
@@ -77,8 +118,12 @@ msds_tidy_measures <- function(data_path = "data/msds_download"){
       Org_Name,
       Indicator_Family,
       Indicator,
-      Currency,
-      Value
+      Numerator,
+      Denominator,
+      Rate,
+      `Rate per Thousand`,
+      Result,
+      Failure_Comment
     )
 
   message("Cleaning... Completed.")

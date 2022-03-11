@@ -1,6 +1,7 @@
 #' Combine and tidy data files
 #'
 #' @param data_path Character string defining the path to the parent data folder
+#' @param do_tidying Logical.  When FALSE, returns the joined but uncleaned dataset
 #'
 #' @return A data frame of data
 #'
@@ -19,11 +20,13 @@
 #' msds_tidy_data(data_path = "C:/your/hard/drive/msds_data")
 #' }
 
-msds_tidy_data <- function(data_path = "data/msds_download"){
+msds_tidy_data <- function(data_path = "data/msds_download", do_tidying = TRUE){
 
   path <- build_data_path(destination = data_path)
 
   result <- combine_files_to_dataframe("exp-data", path)
+
+  if(!do_tidying) return(result) # skip the data cleaning (useful for debugging or demo of package purpose)
 
   message("Cleaning... Combining columns...")
   result <- result %>%

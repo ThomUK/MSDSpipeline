@@ -128,6 +128,10 @@ msds_tidy_data <- function(data_path = "data/msds_download", do_tidying = TRUE){
         toupper(Dimension) == "APGARSCORE5TERMGROUP7" & Measure == "07-Oct" ~ "7 to 10",
         toupper(Dimension) == "APGARSCORE5TERMGROUP7" & Measure == "Missing Value/Value outside reporting parameters" ~ "Missing Value / Value outside reporting parameters",
         TRUE ~ Measure
+      ),
+      Dimension = dplyr::case_when(
+        toupper(Dimension) == "AGEATBOOKINGMOTHERAVG" ~ "AGEATBOOKINGMOTHERAVERAGE",
+        TRUE ~ Dimension
       )
     )
 

@@ -103,6 +103,25 @@ msds_tidy_data <- function(data_path = "data/msds_download", do_tidying = TRUE){
     ) %>%
     dplyr::select(-Period) #remove unnecessary column
 
+  message("Cleaning... Fix raw data category name inconsistencies...")
+  result <- result %>%
+
+    dplyr::mutate(
+      Org_Level = dplyr::case_when(
+        Org_Level %in% c("Provider", "Trust") ~ "Provider Trust", # consolidate and rename this category
+        Org_Level %in% c("NHS England (Region)", "Region") ~ "NHS England Region", # consolidate and rename this category
+        TRUE ~ Org_Level
+      ),
+      Org_Code = dplyr::case_when(
+        Org_Level == "National" & Org_Code == "AllSubmitters" ~ "All",
+        TRUE ~ Org_Code
+      ),
+      Org_Name = dplyr::case_when(
+        Org_Level == "National" & Org_Code == "All" ~ "ALL SUBMITTERS",
+        TRUE ~ Org_Name
+      )
+    )
+
   message("Cleaning... Finalising column data types...")
   # create factors
   result <- result %>%

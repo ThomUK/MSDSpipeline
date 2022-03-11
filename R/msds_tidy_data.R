@@ -122,6 +122,12 @@ msds_tidy_data <- function(data_path = "data/msds_download", do_tidying = TRUE){
         Org_Level == "National" & Org_Code == "All" ~ "ALL SUBMITTERS",
         toupper(Org_Level) == "MBRRACE GROUPING" ~ Org_Code,
         TRUE ~ Org_Name
+      ),
+      Measure = dplyr::case_when(
+        toupper(Dimension) == "APGARSCORE5TERMGROUP7" & Measure == "0-6" ~ "0 to 6",
+        toupper(Dimension) == "APGARSCORE5TERMGROUP7" & Measure == "07-Oct" ~ "7 to 10",
+        toupper(Dimension) == "APGARSCORE5TERMGROUP7" & Measure == "Missing Value/Value outside reporting parameters" ~ "Missing Value / Value outside reporting parameters",
+        TRUE ~ Measure
       )
     )
 

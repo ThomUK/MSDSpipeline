@@ -57,12 +57,12 @@ msds_tidy_measures <- function(data_path = "data/msds_download", do_tidying = TR
         Org_Level %in% c("NHS England (Region)", "Region") ~ "NHS England Region", # consolidate and rename this category
         TRUE ~ Org_Level
       ),
-      Org_Level = forcats::as_factor(Org_Level),
-      Org_Code = forcats::as_factor(Org_Code),
-      Org_Name = forcats::as_factor(Org_Name),
-      IndicatorFamily = forcats::as_factor(IndicatorFamily),
-      Indicator = forcats::as_factor(Indicator),
-      Currency = forcats::as_factor(Currency)
+      Org_Level = factor(Org_Level),
+      Org_Code = factor(Org_Code),
+      Org_Name = factor(Org_Name),
+      IndicatorFamily = factor(IndicatorFamily),
+      Indicator = factor(Indicator),
+      Currency = factor(Currency)
     ) %>%
     dplyr::rename(
       Indicator_Family = IndicatorFamily

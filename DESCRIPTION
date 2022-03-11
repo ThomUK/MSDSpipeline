@@ -12,8 +12,8 @@ RoxygenNote: 7.1.2
 Imports: 
     assertthat,
     dplyr,
-    forcats,
     ggplot2,
+    glue,
     lubridate,
     magrittr,
     purrr,

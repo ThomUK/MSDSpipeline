@@ -103,17 +103,49 @@ msds_tidy_data <- function(data_path = "data/msds_download", do_tidying = TRUE){
     ) %>%
     dplyr::select(-Period) #remove unnecessary column
 
+  message("Cleaning... Fix raw data category name inconsistencies...")
+  result <- result %>%
+
+    fix_mbrrace_group() %>%
+
+    dplyr::mutate(
+      Org_Level = dplyr::case_when(
+        Org_Level %in% c("Provider", "Trust") ~ "Provider Trust", # consolidate and rename this category
+        Org_Level %in% c("NHS England (Region)", "Region") ~ "NHS England Region", # consolidate and rename this category
+        TRUE ~ Org_Level
+      ),
+      Org_Code = dplyr::case_when(
+        Org_Level == "National" & Org_Code == "AllSubmitters" ~ "All",
+        TRUE ~ Org_Code
+      ),
+      Org_Name = dplyr::case_when(
+        Org_Level == "National" & Org_Code == "All" ~ "ALL SUBMITTERS",
+        toupper(Org_Level) == "MBRRACE GROUPING" ~ Org_Code,
+        TRUE ~ Org_Name
+      ),
+      Measure = dplyr::case_when(
+        toupper(Dimension) == "APGARSCORE5TERMGROUP7" & Measure == "0-6" ~ "0 to 6",
+        toupper(Dimension) == "APGARSCORE5TERMGROUP7" & Measure == "07-Oct" ~ "7 to 10",
+        toupper(Dimension) == "APGARSCORE5TERMGROUP7" & Measure == "Missing Value/Value outside reporting parameters" ~ "Missing Value / Value outside reporting parameters",
+        TRUE ~ Measure
+      ),
+      Dimension = dplyr::case_when(
+        toupper(Dimension) == "AGEATBOOKINGMOTHERAVG" ~ "AGEATBOOKINGMOTHERAVERAGE",
+        TRUE ~ Dimension
+      )
+    )
+
   message("Cleaning... Finalising column data types...")
   # create factors
   result <- result %>%
     dplyr::mutate(
-      Dimension = forcats::as_factor(Dimension),
-      Org_Level = forcats::as_factor(Org_Level),
-      Org_Code = forcats::as_factor(Org_Code),
-      Org_Name = forcats::as_factor(Org_Name),
-      Measure = forcats::as_factor(Measure),
-      Count_Of = forcats::as_factor(Count_Of),
-      Org_Geog_Code = forcats::as_factor(Org_Geog_Code),
+      Dimension = factor(toupper(Dimension)),
+      Org_Level = factor(toupper(Org_Level)),
+      Org_Code = factor(toupper(Org_Code)),
+      Org_Name = factor(toupper(Org_Name)),
+      Measure = factor(toupper(Measure)),
+      Count_Of = factor(toupper(Count_Of)),
+      Org_Geog_Code = factor(toupper(Org_Geog_Code)),
     )
 
   message("Cleaning... Finalising column order...")

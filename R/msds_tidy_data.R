@@ -33,11 +33,32 @@ msds_tidy_data <- function(data_path = "data/msds_download", do_tidying = TRUE){
     # 3 measure description columns can safely be dropped as their data appears in the "Measure" column
     dplyr::select(-c(Measure_Description, Measure_Desc, `Measure Description`)) %>%
 
-    # combine similar column names together under standard name
-    tidyr::unite(Value, c(Value, Final_value), na.rm = TRUE) %>%
-    tidyr::unite(Org_Level, c(Org_Level, `Org Level`), na.rm = TRUE) %>%
-    tidyr::unite(Org_Code, c(Org_Code, `Org Code`), na.rm = TRUE) %>%
-    tidyr::unite(Org_Name, c(Org_Name, `Org Name`), na.rm = TRUE)
+    # standardise similar column names
+    dplyr::mutate(
+      Value = dplyr::case_when(
+        !is.na(Final_value) ~ Final_value,
+        TRUE ~ Value
+      ),
+      Final_Value = NULL, # remove the disused column
+
+      Org_Level = dplyr::case_when(
+        !is.na(`Org Level`) ~ `Org Level`,
+        TRUE ~ Org_Level
+      ),
+      `Org Level` = NULL, # remove the disused column
+
+      Org_Code = dplyr::case_when(
+        !is.na(`Org Code`) ~ `Org Code`,
+        TRUE ~ Org_Code
+      ),
+      `Org Code` = NULL, # remove the disused column
+
+      Org_Name = dplyr::case_when(
+        !is.na(`Org Name`) ~ `Org Name`,
+        TRUE ~ Org_Name
+      ),
+      `Org Name` = NULL # remove the disused column
+    )
 
   message("Cleaning... Parsing dates...")
   result <- result %>%

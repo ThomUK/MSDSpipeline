@@ -72,7 +72,6 @@ msds_tidy_measures <- function(data_path = "data/msds_download", do_tidying = TR
     result <- result %>%
     # pivot the Rate, Numerator, Denominator, Result, and Rate per Thousand columns out
     tidyr::pivot_wider(
-      -c(Currency, Value),
       names_from = "Currency",
       values_from = "Value"
     )
